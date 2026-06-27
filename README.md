@@ -1,5 +1,36 @@
 # Business Problem
 The Coffee Bean Supplier Management System is designed to manage a global network of coffee bean suppliers, their hierarchical relationships, inventory levels, and sales orders. The business faces challenges in tracking supplier performance across different regions, analyzing sales trends over time, and optimizing inventory based on historical order data. This project utilizes advanced SQL techniques (CTEs and Window Functions) to extract actionable insights, evaluate supplier hierarchies, and rank product performance to support data-driven decision-making for procurement and sales strategies.
+
+```mermaid
+erDiagram
+    SUPPLIERS ||--o{ SUPPLIERS : "ParentSupplierID"
+    SUPPLIERS ||--o{ COFFEE_BEANS : "supplies"
+    COFFEE_BEANS ||--o{ ORDERS : "ordered_in"
+
+    SUPPLIERS {
+        NUMBER SupplierID PK
+        VARCHAR2 SupplierName
+        VARCHAR2 Region
+        NUMBER ParentSupplierID FK
+    }
+
+    COFFEE_BEANS {
+        NUMBER BeanID PK
+        VARCHAR2 BeanName
+        VARCHAR2 Origin
+        NUMBER SupplierID FK
+        NUMBER PricePerKg
+        NUMBER StockKg
+    }
+
+    ORDERS {
+        NUMBER OrderID PK
+        NUMBER BeanID FK
+        DATE OrderDate
+        NUMBER QuantityKg
+        NUMBER TotalAmount
+    }
+```
 # Analysis and Findings
 ---
 ## Descriptive Analysis (What happened?)
